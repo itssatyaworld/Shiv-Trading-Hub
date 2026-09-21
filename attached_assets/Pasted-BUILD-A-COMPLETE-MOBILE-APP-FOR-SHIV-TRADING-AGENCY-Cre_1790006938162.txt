@@ -1,0 +1,651 @@
+BUILD A COMPLETE MOBILE APP FOR SHIV TRADING AGENCY
+
+Create a polished, modern, professional Android-first mobile app for my family business:
+
+BUSINESS NAME:
+SHIV TRADING AGENCY
+
+LOCATION:
+Patna, Bihar, India
+
+SERVICE AREA:
+Bihar, India
+
+PHONE / WHATSAPP:
++91 7991157051
+
+BUSINESS TYPE:
+B2B wholesale supplier of automotive and industrial lubricants, engine oils, gear oils, greases and related products.
+
+MAIN CUSTOMERS:
+- Auto-parts retailers
+- Workshops
+- Mechanics
+- Fleet operators
+- Transport businesses
+- Commercial vehicle owners/operators
+- Lubricant retailers
+- Wholesale buyers
+
+KNOWN BRANDS:
+- Blazol
+- Bellzoil
+- Empower
+
+Make the app data-driven so more brands and products can be added later.
+
+==================================================
+MAIN GOAL
+==================================================
+
+Build a REAL working wholesale lubricant catalogue and ordering/enquiry app.
+
+The app should allow customers to:
+
+- Browse lubricant products
+- Search products
+- Filter products
+- Browse by brand
+- Browse by category
+- View product details
+- Request wholesale prices
+- Add products to an enquiry/cart
+- Submit wholesale enquiries
+- Contact Shiv Trading Agency on WhatsApp
+- Call Shiv Trading Agency
+- Create an account
+- View previous enquiries/orders
+- Reorder previous products
+
+There should be NO online payment initially.
+
+Orders are wholesale order requests. Final price, quantity, availability and delivery are confirmed by Shiv Trading Agency.
+
+==================================================
+IMPORTANT: REAL PRODUCT IMAGES
+==================================================
+
+Use REAL, AVAILABLE product imagery from legitimate manufacturer/official sources wherever possible.
+
+Do NOT use random generic stock lubricant images when a legitimate product image is available.
+
+Brands to include:
+
+BLAZOL
+BELLZOIL
+EMPOWER
+
+For Bellzoil, use legitimate available product imagery where available, including products such as:
+
+- Gear Power 75W90 Gear Oil
+- Gear Power 80W90 Gear Oil
+- Gear Power 85W140
+- Gear Lube EP 90 Gear Oil
+- Gear Lube EP140 Gear Oil
+- Long Run Grease
+- Turbo TC 15W40 CF4 Engine Oil
+- Super NXG Engine Oil
+- Other legitimate Bellzoil products that are actually available from the manufacturer/product catalogue
+
+For Empower, use legitimate available product imagery where available, including products such as:
+
+- Empower Chassis Grease
+- Blue Gel Grease XHP
+- Empower engine oils
+- Empower coolant products
+- Heavy Duty gear oils
+- Other legitimate Empower products shown in the manufacturer catalogue
+
+For Blazol, use legitimate available product images where available.
+
+IMPORTANT:
+- Do not invent product images.
+- Do not use an image of one product for another product.
+- Do not invent product specifications.
+- Do not invent prices.
+- Do not invent stock availability.
+- Do not invent certifications.
+- Do not invent distributor/authorized-dealer claims.
+- Do not make unsupported technical claims.
+
+If a legitimate product image cannot be found, use a clean professional placeholder and allow the admin to upload the correct image later.
+
+==================================================
+SHIV TRADING AGENCY BRANDING
+==================================================
+
+The business name MUST be clearly visible throughout the app.
+
+Display:
+
+SHIV TRADING AGENCY
+
+Use it in:
+
+- Splash screen
+- App header
+- Home page
+- Product catalogue
+- Product details
+- Login screen
+- Registration screen
+- Wholesale enquiry screen
+- Order confirmation
+- Contact page
+- About section
+- Admin dashboard
+
+Create a professional text-based wordmark if no official logo file is available:
+
+SHIV
+TRADING AGENCY
+
+WHOLESALE LUBRICANTS & GREASES
+
+Do NOT create a fake official logo.
+
+If an actual Shiv Trading Agency logo is uploaded later, make it easy to replace the text-based branding with the real logo.
+
+==================================================
+DESIGN
+==================================================
+
+Make the app look premium, modern and professional.
+
+Design style:
+
+- Premium B2B automotive/industrial
+- Deep navy / dark blue
+- Orange accent
+- White/light background
+- Clean grey sections
+- Strong typography
+- Professional product cards
+- High-quality product imagery
+- Commercial vehicle imagery where appropriate
+- Smooth navigation
+- Modern icons
+- Excellent spacing
+
+Do NOT make it look like a generic AI-generated template.
+
+It should feel like a genuine professional wholesale lubricant business app.
+
+==================================================
+HOME SCREEN
+==================================================
+
+Create an impressive mobile home screen.
+
+Top:
+
+SHIV TRADING AGENCY
+
+Hero headline:
+
+"Multi-Brand Lubricants & Greases for Businesses Across Bihar"
+
+Subheading:
+
+"Wholesale supply for retailers, workshops, fleet operators and commercial vehicle businesses."
+
+Primary buttons:
+
+BROWSE PRODUCTS
+REQUEST WHOLESALE PRICE
+
+Secondary actions:
+
+WHATSAPP US
+CALL NOW
+
+Then show:
+
+1. Product Categories
+2. Popular Brands
+3. Featured Products
+4. Commercial Vehicle Solutions
+5. Retailers & Workshops
+6. How Wholesale Ordering Works
+7. Why Choose Shiv Trading Agency
+8. Wholesale Enquiry CTA
+9. Contact / Location
+
+==================================================
+PRODUCT CATEGORIES
+==================================================
+
+Create these categories:
+
+- Engine Oils
+- Gear Oils
+- Greases
+- Hydraulic Oils
+- Transmission Oils
+- Coolants
+- Brake Fluids
+- Differential Oils
+- Industrial Lubricants
+- Other Lubricants
+
+Make categories editable from the admin dashboard.
+
+==================================================
+BRANDS
+==================================================
+
+Create attractive brand cards for:
+
+BLAZOL
+BELLZOIL
+EMPOWER
+
+Clicking a brand should show its products.
+
+Make brands data-driven so the admin can add more brands later.
+
+==================================================
+PRODUCT CATALOGUE
+==================================================
+
+Create a complete searchable product catalogue.
+
+Customers should be able to:
+
+- Search products
+- Filter by category
+- Filter by brand
+- Filter by grade/viscosity when actual data exists
+- Filter by pack size when actual data exists
+- Browse products
+- Open product details
+- Add products to enquiry/cart
+- Request wholesale price
+- WhatsApp enquiry
+
+Do not display fake prices.
+
+==================================================
+PRODUCT CARD
+==================================================
+
+Each product card should contain:
+
+- Product image
+- Brand
+- Product name
+- Category
+- Verified grade/specification if available
+- Verified pack size if available
+- Availability only if entered by admin
+- REQUEST PRICE button
+- ADD TO ENQUIRY button
+- WHATSAPP button
+
+==================================================
+PRODUCT DETAILS
+==================================================
+
+Product detail page should contain:
+
+- Large product image
+- Product name
+- Brand
+- Category
+- Grade/viscosity if verified
+- Pack size if verified
+- Application/use if verified
+- Availability if entered by admin
+- Request Wholesale Price
+- Add to Enquiry
+- WhatsApp Enquiry
+
+Never invent missing product information.
+
+==================================================
+WHATSAPP
+==================================================
+
+Use this WhatsApp number:
+
++91 7991157051
+
+Create WhatsApp buttons throughout the app.
+
+For a product enquiry, automatically prepare:
+
+"Hello Shiv Trading Agency, I am interested in [PRODUCT NAME]. Please share the wholesale price and availability."
+
+For a general enquiry:
+
+"Hello Shiv Trading Agency, I would like to enquire about wholesale lubricants."
+
+For a multiple-product enquiry, include all selected products and quantities.
+
+==================================================
+CALL
+==================================================
+
+Create prominent CALL NOW buttons using:
+
++91 7991157051
+
+==================================================
+CUSTOMER REGISTRATION / LOGIN
+==================================================
+
+Allow customers to:
+
+- Register
+- Login
+- Logout
+- Edit profile
+- Save name
+- Save phone number
+- Save WhatsApp number
+- Save business/shop name
+- Save city
+- Save address
+
+Customers should only be able to access their own account/order information.
+
+==================================================
+WHOLESALE ENQUIRY
+==================================================
+
+Create a professional enquiry form.
+
+Fields:
+
+- Customer Name
+- Business / Shop Name
+- Phone Number
+- WhatsApp Number
+- City
+- Address
+- Product
+- Quantity
+- Message
+
+Button:
+
+SUBMIT WHOLESALE ENQUIRY
+
+After submission:
+
+- Show confirmation
+- Give customer WhatsApp option
+- Save enquiry in database
+- Make enquiry visible to admin
+
+==================================================
+CART / WHOLESALE ORDER REQUEST
+==================================================
+
+Customers should be able to:
+
+- Add multiple products
+- Set quantities
+- Remove products
+- Review enquiry/cart
+- Submit wholesale order request
+
+Do NOT process payment.
+
+Show:
+
+"Wholesale prices will be confirmed by Shiv Trading Agency."
+
+==================================================
+ORDER HISTORY
+==================================================
+
+Customers can view:
+
+- Order/enquiry number
+- Date
+- Products
+- Quantities
+- Status
+
+Statuses:
+
+NEW
+CONTACTED
+QUOTED
+CONFIRMED
+PROCESSING
+DISPATCHED
+COMPLETED
+CANCELLED
+
+==================================================
+REORDER
+==================================================
+
+For previous completed orders, provide:
+
+REORDER
+
+This should create a new order/enquiry with the same products and quantities.
+
+==================================================
+ADMIN DASHBOARD
+==================================================
+
+Create a secure admin dashboard for Shiv Trading Agency.
+
+Admin features:
+
+- Secure admin login
+- Dashboard
+- Add product
+- Edit product
+- Delete product
+- Upload product image
+- Manage products
+- Manage categories
+- Manage brands
+- Manage availability
+- Manage customers
+- View enquiries
+- View orders
+- View order details
+- Change order status
+- View customer history
+
+The admin should NOT need to edit source code to manage products.
+
+==================================================
+DATABASE
+==================================================
+
+Use a proper database/backend if supported.
+
+Create data structures for:
+
+- Users
+- Customer Profiles
+- Products
+- Categories
+- Brands
+- Enquiries
+- Orders
+- Order Items
+
+Use proper relationships.
+
+Protect customer information.
+
+Customers can only see their own information and orders.
+
+Admins can manage all business data.
+
+Never hard-code passwords or expose secrets.
+
+==================================================
+COMMERCIAL VEHICLE SECTION
+==================================================
+
+Create a dedicated section for:
+
+- Trucks
+- Buses
+- Commercial vehicles
+- Fleet vehicles
+- Transport vehicles
+- Heavy-duty vehicles
+
+Direct customers to relevant lubricant categories.
+
+Do not make unsupported technical claims.
+
+==================================================
+ENGLISH + HINDI
+==================================================
+
+Add an English/Hindi language switcher.
+
+English is the default.
+
+Translate interface/navigation labels into Hindi.
+
+Do NOT translate brand names.
+
+Examples:
+
+Home / होम
+Products / उत्पाद
+Brands / ब्रांड
+Orders / ऑर्डर
+Profile / प्रोफ़ाइल
+Contact Us / संपर्क करें
+Request Wholesale Price / थोक मूल्य पूछें
+WhatsApp Us / व्हाट्सऐप करें
+
+==================================================
+CONTACT PAGE
+==================================================
+
+Display:
+
+SHIV TRADING AGENCY
+
+Patna, Bihar, India
+
+Service Area:
+Bihar
+
+Phone:
++91 7991157051
+
+WhatsApp:
++91 7991157051
+
+Include a Google Maps/location section if supported.
+
+==================================================
+APP NAVIGATION
+==================================================
+
+Use simple mobile navigation:
+
+HOME
+PRODUCTS
+ENQUIRY
+ORDERS
+PROFILE
+
+Include a prominent WhatsApp action.
+
+==================================================
+PWA / MOBILE EXPERIENCE
+==================================================
+
+Make the application:
+
+- Android-friendly
+- Mobile-first
+- Fast
+- Responsive
+- Touch-friendly
+- Easy to install/use on a phone
+- Suitable for future PWA support if available
+
+Use large buttons and easy navigation.
+
+==================================================
+SEO / SHARING
+==================================================
+
+If supported, add:
+
+- App/business title
+- Description
+- Social sharing metadata
+- Shiv Trading Agency branding
+- Proper page titles
+
+==================================================
+IMPORTANT BUSINESS DATA RULE
+==================================================
+
+Do NOT invent:
+
+- Prices
+- Product stock
+- Product specifications
+- Certifications
+- Reviews
+- Distributor status
+- Customer testimonials
+- Business achievements
+- Delivery promises
+- Warranty claims
+
+Only show verified information or information entered by the admin.
+
+Use sample/demo products only when necessary to demonstrate the app, and clearly structure the database so they can be replaced with the real catalogue.
+
+==================================================
+PRIORITY
+==================================================
+
+Build a WORKING application, not just static screens.
+
+Priority order:
+
+1. Shiv Trading Agency branding
+2. Mobile UI
+3. Product catalogue
+4. Real/legitimate product imagery where available
+5. Product search and filters
+6. Brand browsing
+7. WhatsApp
+8. Call
+9. Wholesale enquiry
+10. Customer registration/login
+11. Cart/order request
+12. Order history
+13. Reorder
+14. Admin dashboard
+15. Product management
+16. English/Hindi
+17. Commercial vehicle section
+
+==================================================
+FINAL REQUIREMENT
+==================================================
+
+The finished app should look and feel like a professional B2B wholesale lubricant ordering platform created specifically for:
+
+SHIV TRADING AGENCY
+PATNA, BIHAR
+
+It must prominently use the Shiv Trading Agency name and available legitimate product images from Blazol, Bellzoil and Empower.
+
+Do not make it look like a generic template.
+
+Build the working MVP first, then improve the visual polish and user experience.
+
+Make sure the app can be previewed and tested immediately on a phone.

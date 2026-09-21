@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Shiv Trading Agency",
+    "slug": "shiv-trading-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/shiv-icon.png",
+    "scheme": "shiv-trading-mobile",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {},
+    "splash": {
+      "backgroundColor": "#10243d",
+      "image": "./assets/images/shiv-icon.png",
+      "resizeMode": "contain"
+    },
+    "web": {
+      "favicon": "./assets/images/shiv-icon.png"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
