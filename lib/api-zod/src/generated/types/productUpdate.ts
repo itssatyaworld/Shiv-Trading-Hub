@@ -5,7 +5,6 @@
  * Shiv Trading Agency wholesale catalogue and ordering API
  * OpenAPI spec version: 0.2.0
  */
+import type { ProductInput } from './productInput';
 
-export interface HealthStatus {
-  status: string;
-}
+export type ProductUpdate = ProductInput;

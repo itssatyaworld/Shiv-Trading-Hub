@@ -10,7 +10,9 @@
     "ios": {
       "supportsTablet": false
     },
-    "android": {},
+    "android": {
+      "package": "com.anonymous.shivtradingmobile"
+    },
     "splash": {
       "backgroundColor": "#10243d",
       "image": "./assets/images/shiv-icon.png",
@@ -19,7 +21,9 @@
     "web": {
       "favicon": "./assets/images/shiv-icon.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router"
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

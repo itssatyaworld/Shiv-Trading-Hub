@@ -1,5 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { useAuth } from '@clerk/expo';
+import {
+  createEnquiry,
+  getMyProfile,
+  listBrands,
+  listCategories,
+  listMyOrders,
+  listProducts,
+  updateMyProfile,
+} from '@workspace/api-client-react';
 
 export type Language = 'en' | 'hi';
 export type OrderStatus = 'NEW' | 'CONTACTED' | 'QUOTED' | 'CONFIRMED' | 'PROCESSING' | 'DISPATCHED' | 'COMPLETED' | 'CANCELLED';
@@ -61,6 +71,7 @@ export const products: Product[] = [
 ];
 
 const defaultProfile: CustomerProfile = { name: '', business: '', phone: '', whatsapp: '', city: 'Patna', address: '' };
+let latestProducts: Product[] = [];
 
 const hi: Record<string, string> = {
   home: 'होम', products: 'उत्पाद', enquiry: 'पूछताछ', orders: 'ऑर्डर', profile: 'प्रोफ़ाइल',
@@ -87,19 +98,27 @@ interface AppContextValue {
   addToCart: (productId: string) => void;
   removeFromCart: (productId: string) => void;
   setQuantity: (productId: string, quantity: number) => void;
-  submitOrder: (message?: string) => void;
+  submitOrder: (message?: string) => Promise<void>;
   reorder: (order: Order) => void;
-  saveProfile: (profile: CustomerProfile) => void;
+  saveProfile: (profile: CustomerProfile) => Promise<void>;
+  catalogue: Product[];
+  brandOptions: string[];
+  categoryOptions: string[];
+  signedIn: boolean;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
 const keys = { cart: '@shiv/cart', orders: '@shiv/orders', profile: '@shiv/profile', language: '@shiv/language' };
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const { isLoaded, isSignedIn } = useAuth();
   const [language, setLanguageState] = useState<Language>('en');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [profile, setProfile] = useState<CustomerProfile>(defaultProfile);
+  const [catalogue, setCatalogue] = useState<Product[]>(products);
+  const [brandOptions, setBrandOptions] = useState<string[]>(brands);
+  const [categoryOptions, setCategoryOptions] = useState<string[]>(categories);
 
   useEffect(() => {
     Promise.all([
@@ -114,6 +133,60 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (languageValue === 'en' || languageValue === 'hi') setLanguageState(languageValue);
     });
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([listProducts(), listBrands(), listCategories()])
+      .then(([apiProducts, apiBrands, apiCategories]) => {
+        if (cancelled) return;
+        const nextProducts = apiProducts.map((product) => ({
+          id: String(product.id),
+          brand: product.brand,
+          name: product.name,
+          category: product.category,
+          grade: product.grade ?? undefined,
+          packSize: product.packSize ?? undefined,
+          application: product.application ?? undefined,
+          imageUrl: product.imageUrl ?? undefined,
+          availability: product.availability ?? undefined,
+          imageStatus: product.imageUrl ? 'verified' as const : 'placeholder' as const,
+        }));
+        latestProducts = nextProducts;
+        setCatalogue(nextProducts);
+        setBrandOptions(apiBrands.map((brand) => brand.name));
+        setCategoryOptions(apiCategories.map((category) => category.name));
+      })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (!isSignedIn) {
+      setOrders([]);
+      setProfile(defaultProfile);
+      return;
+    }
+    Promise.all([getMyProfile(), listMyOrders()])
+      .then(([remoteProfile, remoteOrders]) => {
+        setProfile({
+          name: remoteProfile.name,
+          business: remoteProfile.businessName,
+          phone: remoteProfile.phone,
+          whatsapp: remoteProfile.whatsapp,
+          city: remoteProfile.city,
+          address: remoteProfile.address,
+        });
+        setOrders(remoteOrders.map((order) => ({
+          id: `STA-${order.id}`,
+          createdAt: order.createdAt,
+          status: order.status as OrderStatus,
+          message: order.message ?? undefined,
+          items: order.items.map((item) => ({ productId: String(item.productId), quantity: item.quantity })),
+        })));
+      })
+      .catch(() => undefined);
+  }, [isLoaded, isSignedIn]);
 
   const persist = (key: string, value: unknown) => AsyncStorage.setItem(key, JSON.stringify(value)).catch(() => undefined);
   const setLanguage = (value: Language) => { setLanguageState(value); persist(keys.language, value); };
@@ -136,20 +209,44 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return next;
     });
   };
-  const submitOrder = (message?: string) => {
-    if (!cart.length) return;
-    const nextOrder: Order = { id: `STA-${Date.now().toString().slice(-6)}`, createdAt: new Date().toISOString(), status: 'NEW', items: cart, message };
-    setOrders((previous) => { const next = [nextOrder, ...previous]; persist(keys.orders, next); return next; });
+  const submitOrder = async (message?: string) => {
+    if (!cart.length || !isSignedIn) throw new Error('Please sign in before submitting an enquiry.');
+    const created = await createEnquiry({
+      message,
+      items: cart.map((item) => ({ productId: Number(item.productId), quantity: item.quantity })),
+    });
+    const nextOrder: Order = {
+      id: `STA-${created.id}`,
+      createdAt: created.createdAt,
+      status: created.status as OrderStatus,
+      items: created.items.map((item) => ({ productId: String(item.productId), quantity: item.quantity })),
+      message: created.message ?? undefined,
+    };
+    setOrders((previous) => [nextOrder, ...previous]);
     setCart([]);
     persist(keys.cart, []);
   };
   const reorder = (order: Order) => setCart(order.items.map((item) => ({ ...item })));
-  const saveProfile = (value: CustomerProfile) => { setProfile(value); persist(keys.profile, value); };
+  const saveProfile = async (value: CustomerProfile) => {
+    if (!isSignedIn) throw new Error('Please sign in before saving your profile.');
+    const saved = await updateMyProfile({
+      name: value.name,
+      businessName: value.business,
+      phone: value.phone,
+      whatsapp: value.whatsapp,
+      city: value.city,
+      address: value.address,
+    });
+    const next = { ...value, business: saved.businessName };
+    setProfile(next);
+    persist(keys.profile, next);
+  };
 
   const value = useMemo(() => ({
     language, setLanguage, labels: language === 'hi' ? hi : en, cart, orders, profile,
     addToCart, removeFromCart, setQuantity, submitOrder, reorder, saveProfile,
-  }), [language, cart, orders, profile]);
+    catalogue, brandOptions, categoryOptions, signedIn: Boolean(isSignedIn),
+  }), [language, cart, orders, profile, catalogue, brandOptions, categoryOptions, isSignedIn]);
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
@@ -160,5 +257,5 @@ export function useApp() {
 }
 
 export function getProduct(id: string) {
-  return products.find((product) => product.id === id);
+  return latestProducts.find((product) => product.id === id) ?? products.find((product) => product.id === id);
 }

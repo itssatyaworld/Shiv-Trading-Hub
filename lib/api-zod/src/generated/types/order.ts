@@ -5,7 +5,13 @@
  * Shiv Trading Agency wholesale catalogue and ordering API
  * OpenAPI spec version: 0.2.0
  */
+import type { OrderItem } from './orderItem';
 
-export interface HealthStatus {
+export interface Order {
+  id: number;
   status: string;
+  /** @nullable */
+  message: string | null;
+  createdAt: Date;
+  items: OrderItem[];
 }

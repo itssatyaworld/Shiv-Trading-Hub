@@ -1,0 +1,163 @@
+Continue developing the Shiv Trading Agency mobile app.
+
+The current UI looks good. Do NOT redesign the whole app. Keep the existing premium navy + orange design and Shiv Trading Agency branding.
+
+Now complete the functional production features.
+
+1. BACKEND + DATABASE
+Connect the app to a secure backend/database.
+
+Create:
+- Customers
+- Customer profiles
+- Products
+- Brands
+- Categories
+- Enquiries
+- Orders
+- Order items
+
+Make all data persistent.
+
+2. CUSTOMER ACCOUNTS
+Implement working:
+- Registration
+- Login
+- Logout
+- Profile editing
+- Business/shop name
+- Phone
+- WhatsApp
+- Address
+- City
+
+Customers must only see their own orders and enquiries.
+
+3. ADMIN DASHBOARD
+Create a secure admin area for Shiv Trading Agency.
+
+Admin must be able to:
+- Add products
+- Edit products
+- Delete products
+- Upload product images
+- Add/edit/delete brands
+- Add/edit/delete categories
+- Set product availability
+- View customers
+- View enquiries
+- View orders
+- View order details
+- Change order status
+
+Order statuses:
+New
+Contacted
+Quoted
+Confirmed
+Processing
+Dispatched
+Completed
+Cancelled
+
+4. REAL PRODUCT CATALOGUE
+Keep these brands:
+
+BLAZOL
+BELLZOIL
+EMPOWER
+
+Use legitimate available product images from official/manufacturer sources wherever possible.
+
+Do not use random stock images when a legitimate product image is available.
+
+Do not invent:
+- Prices
+- Specifications
+- Stock
+- Certifications
+- Distributor claims
+- Product information
+
+If an image or product detail cannot be verified, use a clean placeholder and make it editable from the admin dashboard.
+
+5. PRODUCT CATALOGUE
+Make Products fully functional.
+
+Customers should be able to:
+- Search
+- Filter by brand
+- Filter by category
+- Open product details
+- Request wholesale price
+- Add products to enquiry
+- Change quantities
+- Remove products
+
+6. WHOLESALE ENQUIRY
+Make the enquiry system actually save enquiries to the database.
+
+Include:
+Customer
+Business name
+Phone
+WhatsApp
+Product
+Quantity
+Message
+Date
+Status
+
+7. WHATSAPP
+Use:
+
++91 7991157051
+
+Product WhatsApp messages should automatically include the product name.
+
+Example:
+
+Hello Shiv Trading Agency, I am interested in [PRODUCT NAME]. Please share the wholesale price and availability.
+
+8. ORDERS
+Make wholesale order requests save to the database.
+
+Customers should be able to:
+- Submit order request
+- View order history
+- Open order details
+- Reorder completed orders
+
+No online payment.
+
+9. ENGLISH + HINDI
+Make the English/Hindi switcher functional across the main UI.
+
+10. SHIV TRADING AGENCY BRANDING
+Keep:
+
+SHIV TRADING AGENCY
+
+prominently visible.
+
+Do not replace the business branding with generic branding.
+
+11. IMPORTANT
+Do not stop at mock screens.
+
+Implement the actual functionality and database connections.
+
+After completing each major feature, test it and fix errors.
+
+Prioritize:
+1. Database
+2. Authentication
+3. Product catalogue
+4. Enquiries
+5. Orders
+6. Admin management
+7. Real product images
+8. WhatsApp/Call
+9. Hindi/English
+
+Keep the current visual design unless a change is necessary for functionality.

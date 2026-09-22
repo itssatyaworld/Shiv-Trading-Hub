@@ -6,6 +6,8 @@ import { useColors } from '@/hooks/useColors';
 import { KeyboardAwareScrollViewCompat } from '@/components/KeyboardAwareScrollViewCompat';
 import { BrandMark, SectionTitle, SolidButton, SoftButton } from '@/components/BrandUI';
 import { useApp, type CustomerProfile } from '@/lib/store';
+import { useAuth, useClerk } from '@clerk/expo';
+import { useRouter } from 'expo-router';
 
 const PHONE = '+917991157051';
 
@@ -13,12 +15,20 @@ export default function ProfileScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const { profile, saveProfile, language, setLanguage, labels } = useApp();
+  const { isSignedIn } = useAuth();
+  const { signOut } = useClerk();
+  const router = useRouter();
   const [form, setForm] = useState<CustomerProfile>(profile);
 
   const update = (key: keyof CustomerProfile, value: string) => setForm((previous) => ({ ...previous, [key]: value }));
   const save = () => {
-    saveProfile(form);
-    Alert.alert('Profile saved', 'Your enquiry details are ready to use.');
+    if (!isSignedIn) {
+      router.push('/(auth)/sign-in');
+      return;
+    }
+    saveProfile(form)
+      .then(() => Alert.alert('Profile saved', 'Your enquiry details are ready to use.'))
+      .catch((error: Error) => Alert.alert('Could not save profile', error.message));
   };
 
   return (
@@ -26,6 +36,17 @@ export default function ProfileScreen() {
       <View style={styles.header}><BrandMark /><View style={[styles.profileAvatar, { backgroundColor: colors.primary }]}><Text style={styles.avatarText}>{form.name ? form.name[0].toUpperCase() : 'G'}</Text></View></View>
       <Text style={[styles.title, { color: colors.foreground }]}>{labels.profile}</Text>
       <Text style={[styles.subtitle, { color: colors.mutedForeground }]}>Save your details once for faster wholesale enquiries.</Text>
+      {!isSignedIn ? (
+        <View style={[styles.languageCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <View><Text style={[styles.languageTitle, { color: colors.foreground }]}>Customer account</Text><Text style={[styles.languageBody, { color: colors.mutedForeground }]}>Sign in to save your profile and view orders.</Text></View>
+          <SoftButton label="Sign in" onPress={() => router.push('/(auth)/sign-in')} />
+        </View>
+      ) : (
+        <View style={styles.contactRow}>
+          <SoftButton label="Admin console" onPress={() => router.push('/admin')} />
+          <SoftButton label="Sign out" onPress={() => signOut()} />
+        </View>
+      )}
       <View style={[styles.languageCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
         <View style={styles.languageCopy}><Ionicons name="language-outline" size={20} color={colors.primary} /><View><Text style={[styles.languageTitle, { color: colors.foreground }]}>Language</Text><Text style={[styles.languageBody, { color: colors.mutedForeground }]}>English / हिन्दी</Text></View></View>
         <View style={[styles.switch, { backgroundColor: colors.secondary }]}>
@@ -58,7 +79,7 @@ export default function ProfileScreen() {
         <Text style={styles.aboutBody}>Wholesale lubricants & greases</Text>
         <Text style={styles.aboutBody}>Patna, Bihar · Serving Bihar</Text>
       </View>
-      <Text style={[styles.privacy, { color: colors.mutedForeground }]}>Your profile and enquiry history are stored on this device in this MVP. A connected customer account system can be added when the business backend is ready.</Text>
+      <Text style={[styles.privacy, { color: colors.mutedForeground }]}>Your profile, enquiries and orders are stored securely with your customer account.</Text>
       <View style={{ height: 30 }} />
     </KeyboardAwareScrollViewCompat>
   );

@@ -21,7 +21,7 @@ import {
   SolidButton,
   SoftButton,
 } from '@/components/BrandUI';
-import { brands, categories, products, useApp } from '@/lib/store';
+import { useApp } from '@/lib/store';
 
 const PHONE = '+917991157051';
 
@@ -29,7 +29,7 @@ export default function HomeScreen() {
   const colors = useColors();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { language, labels } = useApp();
+  const { language, labels, catalogue, brandOptions, categoryOptions } = useApp();
 
   const whatsapp = () =>
     Linking.openURL(
@@ -123,14 +123,14 @@ export default function HomeScreen() {
 
       <SectionTitle title={labels.categories} action={labels.viewAll} onPress={() => router.push('/(tabs)/products')} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
-        {categories.slice(0, 6).map((category) => (
+        {categoryOptions.slice(0, 6).map((category) => (
           <CategoryPill key={category} label={category} />
         ))}
       </ScrollView>
 
       <SectionTitle title={labels.brands} action={labels.viewAll} onPress={() => router.push('/(tabs)/products')} />
       <View style={styles.brandGrid}>
-        {brands.map((brand, index) => (
+        {brandOptions.map((brand, index) => (
           <Pressable
             key={brand}
             onPress={() => router.push({ pathname: '/(tabs)/products', params: { brand } })}
@@ -149,7 +149,7 @@ export default function HomeScreen() {
 
       <SectionTitle title={labels.featured} action={labels.viewAll} onPress={() => router.push('/(tabs)/products')} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
-        {products.slice(0, 4).map((product) => (
+        {catalogue.slice(0, 4).map((product) => (
           <ProductCard
             key={product.id}
             product={product}

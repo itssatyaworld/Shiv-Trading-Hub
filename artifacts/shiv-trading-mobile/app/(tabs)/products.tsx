@@ -5,25 +5,25 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from '@/hooks/useColors';
 import { CategoryPill, ProductCard, BrandMark, SectionTitle } from '@/components/BrandUI';
-import { brands, categories, products, useApp } from '@/lib/store';
+import { useApp } from '@/lib/store';
 
 export default function ProductsScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const params = useLocalSearchParams<{ brand?: string }>();
-  const { language } = useApp();
+  const { language, catalogue, brandOptions, categoryOptions } = useApp();
   const [query, setQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
   const [selectedBrand, setSelectedBrand] = useState<string | undefined>(params.brand);
 
   const filteredProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    return products.filter((product) => {
+    return catalogue.filter((product) => {
       const matchesQuery = !normalized || `${product.name} ${product.brand} ${product.category}`.toLowerCase().includes(normalized);
       return matchesQuery && (!selectedCategory || product.category === selectedCategory) && (!selectedBrand || product.brand === selectedBrand);
     });
-  }, [query, selectedCategory, selectedBrand]);
+  }, [catalogue, query, selectedCategory, selectedBrand]);
 
   return (
     <ScrollView
@@ -59,12 +59,12 @@ export default function ProductsScreen() {
       <SectionTitle title={language === 'hi' ? 'ब्रांड' : 'Brands'} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontal}>
         <CategoryPill label={language === 'hi' ? 'सभी' : 'All'} active={!selectedBrand} onPress={() => setSelectedBrand(undefined)} />
-        {brands.map((brand) => <CategoryPill key={brand} label={brand} active={selectedBrand === brand} onPress={() => setSelectedBrand(brand)} />)}
+        {brandOptions.map((brand) => <CategoryPill key={brand} label={brand} active={selectedBrand === brand} onPress={() => setSelectedBrand(brand)} />)}
       </ScrollView>
       <SectionTitle title={language === 'hi' ? 'श्रेणी' : 'Category'} />
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontal}>
         <CategoryPill label={language === 'hi' ? 'सभी' : 'All'} active={!selectedCategory} onPress={() => setSelectedCategory(undefined)} />
-        {categories.map((category) => <CategoryPill key={category} label={category} active={selectedCategory === category} onPress={() => setSelectedCategory(category)} />)}
+        {categoryOptions.map((category) => <CategoryPill key={category} label={category} active={selectedCategory === category} onPress={() => setSelectedCategory(category)} />)}
       </ScrollView>
       <View style={styles.resultHeader}>
         <Text style={[styles.resultCount, { color: colors.mutedForeground }]}>{filteredProducts.length} {language === 'hi' ? 'उत्पाद' : 'products'}</Text>

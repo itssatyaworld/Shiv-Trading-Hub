@@ -1,22 +1,20 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
-  version: 0.1.0
-  description: API specification
+  version: 0.2.0
+  description: Shiv Trading Agency wholesale catalogue and ordering API
 servers:
   - url: /api
-    description: Base API path
 tags:
   - name: health
-    description: Health operations
+  - name: catalogue
+  - name: customer
+  - name: admin
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
-      summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +22,312 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /products:
+    get:
+      operationId: listProducts
+      tags: [catalogue]
+      parameters:
+        - { name: q, in: query, schema: { type: string } }
+        - { name: brand, in: query, schema: { type: string } }
+        - { name: category, in: query, schema: { type: string } }
+      responses:
+        "200":
+          description: Catalogue products
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Product" }
+  /brands:
+    get:
+      operationId: listBrands
+      tags: [catalogue]
+      responses:
+        "200":
+          description: Brands
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Brand" }
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [catalogue]
+      responses:
+        "200":
+          description: Categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Category" }
+  /me/profile:
+    get:
+      operationId: getMyProfile
+      tags: [customer]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Customer profile
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CustomerProfile" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+    put:
+      operationId: updateMyProfile
+      tags: [customer]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CustomerProfileInput" }
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CustomerProfile" }
+  /me/orders:
+    get:
+      operationId: listMyOrders
+      tags: [customer]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Customer-owned orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Order" }
+  /me/enquiries:
+    post:
+      operationId: createEnquiry
+      tags: [customer]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/EnquiryInput" }
+      responses:
+        "201":
+          description: Enquiry and wholesale order request
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+  /admin/products:
+    get:
+      operationId: listAdminProducts
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: All products for administration
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Product" }
+    post:
+      operationId: createProduct
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductInput" }
+      responses:
+        "201":
+          description: Created product
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+  /admin/products/{id}:
+    patch:
+      operationId: updateProduct
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductUpdate" }
+      responses:
+        "200":
+          description: Updated product
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+    delete:
+      operationId: deleteProduct
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "204": { description: Deleted }
+  /admin/orders/{id}/status:
+    patch:
+      operationId: updateOrderStatus
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/OrderStatusInput" }
+      responses:
+        "200":
+          description: Updated order
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+  /admin/customers:
+    get:
+      operationId: listAdminCustomers
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Customers
+          content:
+            application/json:
+              schema: { type: array, items: { type: object } }
+  /admin/enquiries:
+    get:
+      operationId: listAdminEnquiries
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Enquiries
+          content:
+            application/json:
+              schema: { type: array, items: { type: object } }
+  /admin/orders:
+    get:
+      operationId: listAdminOrders
+      tags: [admin]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Orders
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Order" } }
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
   schemas:
     HealthStatus:
+      type: object
+      properties: { status: { type: string } }
+      required: [status]
+    Error:
+      type: object
+      properties: { error: { type: string } }
+      required: [error]
+    Brand:
+      type: object
+      properties: { id: { type: integer }, name: { type: string } }
+      required: [id, name]
+    Category:
+      type: object
+      properties: { id: { type: integer }, name: { type: string } }
+      required: [id, name]
+    Product:
+      type: object
+      properties:
+        id: { type: integer }
+        slug: { type: string }
+        brand: { type: string }
+        category: { type: string }
+        name: { type: string }
+        grade: { type: ["string", "null"] }
+        packSize: { type: ["string", "null"] }
+        application: { type: ["string", "null"] }
+        imageUrl: { type: ["string", "null"] }
+        availability: { type: ["string", "null"] }
+      required: [id, slug, brand, category, name, grade, packSize, application, imageUrl, availability]
+    CustomerProfile:
+      type: object
+      properties:
+        name: { type: string }
+        businessName: { type: string }
+        phone: { type: string }
+        whatsapp: { type: string }
+        city: { type: string }
+        address: { type: string }
+      required: [name, businessName, phone, whatsapp, city, address]
+    CustomerProfileInput:
+      allOf: [{ $ref: "#/components/schemas/CustomerProfile" }]
+    OrderItem:
+      type: object
+      properties:
+        productId: { type: integer }
+        productName: { type: string }
+        quantity: { type: integer }
+      required: [productId, productName, quantity]
+    Order:
+      type: object
+      properties:
+        id: { type: integer }
+        status: { type: string }
+        message: { type: ["string", "null"] }
+        createdAt: { type: string, format: date-time }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/OrderItem" }
+      required: [id, status, message, createdAt, items]
+    EnquiryItemInput:
+      type: object
+      properties:
+        productId: { type: integer }
+        quantity: { type: integer, minimum: 1 }
+      required: [productId, quantity]
+    EnquiryInput:
+      type: object
+      properties:
+        message: { type: string }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/EnquiryItemInput" }
+      required: [items]
+    ProductInput:
+      type: object
+      properties:
+        slug: { type: string }
+        brandId: { type: integer }
+        categoryId: { type: integer }
+        name: { type: string }
+        grade: { type: ["string", "null"] }
+        packSize: { type: ["string", "null"] }
+        application: { type: ["string", "null"] }
+        imageUrl: { type: ["string", "null"] }
+        availability: { type: ["string", "null"] }
+      required: [slug, brandId, categoryId, name]
+    ProductUpdate:
+      allOf: [{ $ref: "#/components/schemas/ProductInput" }]
+    OrderStatusInput:
       type: object
       properties:
         status:
           type: string
-      required:
-        - status
-
+          enum: [NEW, CONTACTED, QUOTED, CONFIRMED, PROCESSING, DISPATCHED, COMPLETED, CANCELLED]
+      required: [status]

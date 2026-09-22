@@ -14,19 +14,26 @@ export default function EnquiryScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { cart, profile, setQuantity, removeFromCart, submitOrder, labels, language } = useApp();
+  const { cart, profile, setQuantity, removeFromCart, submitOrder, labels, language, signedIn } = useApp();
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const items = useMemo(() => cart.map((item) => ({ ...item, product: getProduct(item.productId) ?? products[0] })), [cart]);
 
   const submit = () => {
+    if (!signedIn) {
+      router.push('/(auth)/sign-in');
+      return;
+    }
     if (!profile.name || !profile.phone || !profile.business) {
       Alert.alert('Profile details needed', 'Please save your name, business and phone in Profile before sending an enquiry.');
       return;
     }
-    submitOrder(message);
-    setMessage('');
-    setSubmitted(true);
+    submitOrder(message)
+      .then(() => {
+        setMessage('');
+        setSubmitted(true);
+      })
+      .catch((error: Error) => Alert.alert('Could not submit enquiry', error.message));
   };
   const whatsapp = () => {
     const itemText = items.map((item) => `${item.product.name} x ${item.quantity}`).join(', ');
