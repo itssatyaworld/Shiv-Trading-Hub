@@ -11,7 +11,7 @@
       "supportsTablet": false
     },
     "android": {
-      "package": "com.anonymous.shivtradingmobile"
+      "package": "com.shivtradingagency.app"
     },
     "splash": {
       "backgroundColor": "#10243d",
