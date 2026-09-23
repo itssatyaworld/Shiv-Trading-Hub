@@ -1,0 +1,40 @@
+I like the current Shiv Trading Agency app and I do NOT want to rebuild or redesign it.
+
+The Replit mobile app is currently working through Expo Go and the app has already been published/previewed at:
+
+https://shiv-trading-hub--satyaprakashcri.replit.app
+
+I now need an INSTALLABLE ANDROID APK from the EXISTING PROJECT.
+
+Please do the following:
+
+1. Keep the current Shiv Trading Agency app exactly as it is visually.
+2. Keep all existing screens, branding, product catalogue, WhatsApp button, Call button and navigation.
+3. Do not rebuild the app from scratch.
+4. Configure the existing Expo/React Native project for an Android APK build.
+5. Create an APK build profile using:
+   android.buildType = "apk"
+   or another correct Expo/EAS configuration that produces a directly installable .apk.
+6. Make sure the Android application name is:
+   Shiv Trading Agency
+7. Use the current app icon.
+8. Use a proper Android package/application ID such as:
+   com.shivtradingagency.app
+   if that ID is available and appropriate.
+9. Build an installable RELEASE APK, not just an Expo Go preview.
+10. If EAS Build is required, configure eas.json correctly.
+11. Run the Android build.
+12. Fix any build/configuration errors automatically.
+13. When the build succeeds, give me the direct download link/location for the generated .apk file.
+14. Do NOT publish to Google Play.
+15. Do NOT tell me to use Expo Go as the final solution.
+16. I specifically need the actual .apk file that I can download and install directly on an Android phone.
+
+If the current Replit plan cannot perform the cloud APK build because of a usage/build limit, DO NOT modify or delete the existing app.
+
+Instead:
+- prepare all required APK build configuration files in the project,
+- tell me exactly what is preventing the build,
+- and provide the exact command/configuration needed to build the APK outside Replit.
+
+The priority is to preserve the current working app and obtain a standalone Android .apk.
