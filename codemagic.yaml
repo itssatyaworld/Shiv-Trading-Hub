@@ -1,6 +1,6 @@
 workflows:
   android-apk:
-    name: Shiv Trading Agency APK
+    name: Shiv Trading Agency Release APK
     max_build_duration: 60
     working_directory: artifacts/shiv-trading-mobile
 
@@ -17,10 +17,30 @@ workflows:
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
-      - name: Build APK
+      - name: Configure release signing for testing
+        script: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path("android/app/build.gradle")
+          s = p.read_text()
+
+          old = "buildTypes {"
+          new = """buildTypes {
+                  release {
+                      signingConfig signingConfigs.debug
+                  }"""
+
+          if "signingConfig signingConfigs.debug" not in s:
+              s = s.replace(old, new, 1)
+
+          p.write_text(s)
+          PY
+
+      - name: Build release APK
         script: |
           cd android
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
 
     artifacts:
-      - android/app/build/outputs/apk/debug/*.apk
+      - android/app/build/outputs/apk/release/*.apk
