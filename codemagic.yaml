@@ -7,7 +7,7 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          npx --yes pnpm@10 install --no-frozen-lockfile --dangerously-allow-all-builds
+          npx --yes pnpm@10 install --no-frozen-lockfile --strict-dep-builds=false
 
       - name: Generate Android project
         script: |
