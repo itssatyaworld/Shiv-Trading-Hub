@@ -7,7 +7,8 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          npm install
+          corepack enable
+          pnpm install --no-frozen-lockfile --dangerously-allow-all-builds
 
       - name: Generate Android project
         script: |
